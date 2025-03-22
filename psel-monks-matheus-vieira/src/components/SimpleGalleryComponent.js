@@ -27,7 +27,6 @@ const Gallery = styled.section`
 	}
 `;
 
-// Estilo para a .div1
 const Col1 = styled.div`
 	& h2{
 		margin-top: 6px;
@@ -52,7 +51,6 @@ const Col1 = styled.div`
 	
 `;
 
-// Estilo para a .div2
 const Col2 = styled.div`
 	display: flex;
 	flex-direction: column;

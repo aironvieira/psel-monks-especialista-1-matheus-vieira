@@ -9,8 +9,6 @@ const FormSection = styled.section`
 	@media(min-width: 900px) {
 		margin-top: 30px;
 		padding: 30px 40px 0;
-
-
 	}
 
 	& img{
@@ -101,8 +99,6 @@ const FormSection = styled.section`
 		}
 	}
 
-
-	
 	@media(min-width: 940px) {
 		& .forms-security{
 			flex-wrap: nowrap;
@@ -196,16 +192,14 @@ const Form = () => {
 	const [input2Valid, setInput2Valid] = useState(true);
 	const [securityValid, setSecurityValid] = useState(true);
 
-	// Gerar os números de segurança apenas uma vez quando o componente for montado
 	const [numSecurity1, setNumSecurity1] = useState(Math.floor(Math.random() * 999) + 1);
 	const [numSecurity2, setNumSecurity2] = useState(Math.floor(Math.random() * 1000));
 	const correctAnswer = numSecurity1 + numSecurity2;
 
 	const [securityAnswer, setSecurityAnswer] = useState('');
 
-	const [isFormValid, setIsFormValid] = useState(false); // Para controlar a habilitação do botão
+	const [isFormValid, setIsFormValid] = useState(false); 
 
-	// Função para validar os campos de input1 e input2
 	const validateInput = (input, setter, validSetter) => {
 		if (!input.trim()) {
 			validSetter(false);
@@ -214,7 +208,6 @@ const Form = () => {
 		}
 	};
 
-	// Função de validação do formulário
 	const validateForm = () => {
 		const isInput1Valid = input1.trim() !== '';
 		const isInput2Valid = input2.trim() !== '';
@@ -241,9 +234,7 @@ const Form = () => {
 		event.preventDefault();
 
 		if (isFormValid) {
-			// Lógica de envio do formulário
 			alert('Formulário enviado com sucesso!');
-			// Limpar os campos após o envio
 			setInput1('');
 			setInput2('');
 			setInput3('');

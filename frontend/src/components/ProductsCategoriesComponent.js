@@ -1,5 +1,6 @@
 //To do: pegar as categorias pré cadastradas do back end
 
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -50,7 +51,23 @@ const CategoriasSection = styled.section`
 
 function ProductsCategoriesComponent() {
 
-    const listaCategorias = ["Perfumaria", "Corpo e banho", "Hidratante", "Desodorante", "Cabelos", "Maquiagem", "Rosto", "Casa", "Infantil", "Shampoo", "Sabonete", "Body splash", "Óleo corporal", "Corretivo", "Proteção solar"];
+    const [listaCategorias, setListaCategorias] = useState([]);
+    const [loading, setLoading] = useState(true);  // Estado para controle de carregamento
+
+    useEffect(() => {
+        fetch('http://localhost/get_categorias.php')
+            .then(response => response.json())  
+            .then(data => {
+                setListaCategorias(data); 
+                setLoading(false);  // Define como falso quando a requisição é concluída
+                console.log(data);         
+            })
+            .catch(error => console.error('Erro ao carregar os dados:', error));  
+    }, []);
+
+    if (loading) {
+        return <div>Carregando...</div>;  // Exibe uma mensagem enquanto os dados estão sendo carregados
+    }
 
 	return (
 		<>
@@ -60,9 +77,11 @@ function ProductsCategoriesComponent() {
                     
                     <div className='list-categories'>
                         {
-                            listaCategorias.map((categoria, index) => (
-                                <a href="/" key={index}>{categoria}</a>
-                            ))
+                            listaCategorias.length === 0
+                                ? <p>Nenhuma categoria encontrada.</p>  // Exibe uma mensagem se não houver categorias
+                                : listaCategorias.map((categoria, index) => (
+                                    <a href="/" key={index}>{categoria.categoria}</a> 
+                                ))
                         }
                     </div>
                 </CategoriasSection>

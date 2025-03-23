@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import FormImage from '../assets/images/form-image.svg';
+import axios from 'axios';
 
 const FormSection = styled.section`
 	background-color: #2d2d2d;
@@ -63,7 +64,7 @@ const FormSection = styled.section`
 			padding: 10px 24px;
 			border-radius: 8px;
 			align-items: center;
-			
+
 
 			& .forms-random-number,
 			& label {
@@ -90,7 +91,7 @@ const FormSection = styled.section`
 				width: auto;
 				font-size: 24px;
 			}
-			
+
 			& .forms-random-number,
 			& label {
 				font-size: 20px;
@@ -125,7 +126,7 @@ const Container = styled.div`
 	margin: 0 auto;
 	max-width: 1200px;
 	gap: 32px;
-	
+
 
 	@media(min-width: 1300px) {
 		display: flex;
@@ -154,6 +155,11 @@ const Input = styled.input`
 		width: 392px;
 		margin: 0;
 
+		
+	&.input-security {
+		width: auto;
+			margin: 0;
+		}
 	}
 `;
 
@@ -187,6 +193,7 @@ const Form = () => {
 	const [input2, setInput2] = useState('');
 	const [input3, setInput3] = useState('');
 	const [input4, setInput4] = useState('');
+	const [categorias, setCategorias] = useState([]); // Inicializa com uma categoria vazia
 
 	const [input1Valid, setInput1Valid] = useState(true);
 	const [input2Valid, setInput2Valid] = useState(true);
@@ -198,7 +205,7 @@ const Form = () => {
 
 	const [securityAnswer, setSecurityAnswer] = useState('');
 
-	const [isFormValid, setIsFormValid] = useState(false); 
+	const [isFormValid, setIsFormValid] = useState(false);
 
 	const validateInput = (input, setter, validSetter) => {
 		if (!input.trim()) {
@@ -230,18 +237,35 @@ const Form = () => {
 		validateForm();
 	}, [input1, input2, securityAnswer]);
 
-	const handleSubmit = (event) => {
+
+	const handleSubmit = async (event) => {
 		event.preventDefault();
 
 		if (isFormValid) {
-			alert('Formulário enviado com sucesso!');
-			setInput1('');
-			setInput2('');
-			setInput3('');
-			setInput4('');
-			setSecurityAnswer('');
+
+			const categorias = [
+				{ categoria: input1 },
+				{ categoria: input2 },
+				{ categoria: input3 },
+				{ categoria: input4 }
+			  ];
+
+			try {
+				const response = await axios.post('http://localhost/post_categorias.php', { categorias });
+				
+				console.log(response);
+				setInput1('');
+				setInput2('');
+				setInput3('');
+				setInput4('');
+				setSecurityAnswer('');
+			} catch (error) {
+				console.error('Erro ao enviar as categorias:', error);
+			}
+			
 		}
-	};
+		
+	};	
 
 	return (
 		<FormSection>
@@ -307,7 +331,7 @@ const Form = () => {
 							/>
 						</div>
 
-						<Button type="submit" disabled={!isFormValid}>Lorem Ipsum</Button>
+						<Button type="submit" disabled={!isFormValid} onSubmit={(e) => handleSubmit(e)}>Lorem Ipsum</Button>
 					</form>
 				</div>
 			</Container>

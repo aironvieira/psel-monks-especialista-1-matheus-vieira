@@ -1,40 +1,5 @@
 # psel-monks-especialista-1-matheus-vieira
 
-## Um projeto utilizando React JS, PHP, MySQL e Docker
-
-### para inicialização do backend,
-### é necessário a criação de um arquivo .env dentro da pasta backend com as variáveis globais:
-
-### DB_USER= {user}
-### DB_PASSWORD= {senha}
-### DB_NAME= psel-db
-### SERVERNAME= mysql-db
-
-### após a criação do arquivo,
-### docker-compose up --build irá criar dois containers, php e mysql, junto disto, o init.sql irá criar a database e a table de categorias já populada para utilização dinâmica no frontend.
-### dentro de /backend
-
-### para inicialização do frontend, necessário utilizar os seguintes comandos:
-
-## npm install
-## npm install styled-components
-## npm install axios
-### npm start
-
-### o projeto iniciará e suas funções já estarão disponíveis.
-
-
-### Explicação de algumas abordagens:
-
-### A seção ProductsCategories esta sendo populada via request no backend.
-### O forms esta requisitando um post com as categorias digitadas, necessária ao menos duas como validação, caso feito com sucesso, atualizar a página irá mostrar as categorias digitadas na ProductsCategories.
-### A seção Products esta sendo populada via request na pasta public/data, os dados são dinâmicos de um json.
-
-
-
-
-# psel-monks-especialista-1-matheus-vieira
-
 ## Projeto utilizando React JS, PHP, MySQL e Docker
 
 ### Inicialização do Backend:
